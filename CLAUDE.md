@@ -1,7 +1,8 @@
 # CLAUDE.md
 
 Presentation deck for the Nairobi AI Community × The AI Collective (Nairobi Chapter)
-**AI Automations Training, Cohort 2 Demo Day** — Nairobi, Saturday 8 August 2026, 10:00–14:00 EAT.
+**AI Automations Training, Cohort 2 Demo Day** — Nairobi, Saturday 8 August 2026.
+Event window 10:00–14:00 EAT; **this deck has a 30-minute slot** within it.
 
 ## Work through the pipeline, not around it
 
@@ -34,6 +35,9 @@ Vite · React 19 · TypeScript (strict) · Tailwind CSS v4. No slide framework, 
 no animation library. Must run offline after `npm install` — assume no venue wifi.
 
 ## Presentation constraints
+
+Runs in a **30-minute slot** — budget 60–90s per slide, so ~18–26 slides. Overrunning
+means the close gets cut live, so keep the per-slide minute budget in the spec honest.
 
 Designed for a projector at **1920×1080, 16:9** in a lit room. Body text ≥ 24px
 equivalent, contrast ≥ 4.5:1, one idea per slide, no hover-dependent content, keyboard

@@ -7,7 +7,8 @@ Presentation deck for the **AI Automations Training, Cohort 2 Demo Day**.
 | **Host** | Nairobi AI Community |
 | **Partner** | The AI Collective — Nairobi Chapter |
 | **Programme** | AI Automations Training, Cohort 2 |
-| **When** | Saturday, 8 August 2026 · 10:00 – 14:00 EAT |
+| **When** | Saturday, 8 August 2026 · event window 10:00 – 14:00 EAT |
+| **Deck slot** | 30 minutes |
 | **Where** | Nairobi, Kenya |
 | **Stack** | Vite · React 19 · TypeScript · Tailwind CSS v4 |
 

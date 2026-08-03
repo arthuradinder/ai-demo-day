@@ -21,6 +21,7 @@ Extra slides not in spec: …
 
 | Check | Result | Evidence |
 |---|---|---|
+| Runtime fits 30-min slot (sum of slide minutes) | | |
 | 1920×1080 16:9 | | |
 | Back-row legibility (body ≥ 24px equiv) | | |
 | Contrast ≥ 4.5:1 — measured | | |

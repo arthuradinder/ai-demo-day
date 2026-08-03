@@ -40,7 +40,8 @@ re-run this stage and bump the brief's revision.
 | Event | Demo Day |
 | City | Nairobi, Kenya |
 | Date | Saturday, 8 August 2026 |
-| Time | 10:00 – 14:00 EAT (4 hours) |
+| Event window | 10:00 – 14:00 EAT (4 hours) |
+| **Deck slot** | **30 minutes** — this deck, on stage |
 | Sponsors | **PLACEHOLDER** — names not yet confirmed |
 | Member/cohort numbers | **PLACEHOLDER** — confirm with user before shipping |
 
@@ -53,8 +54,8 @@ Write both files. Copy the structure from `docs/templates/`.
   sponsors/partners, mentors/facilitators, press) and the one thing each must leave with.
 - The **single narrative spine** in one sentence. Every slide must serve it or be cut.
 - Non-goals — what this deck deliberately is not (not a course syllabus, not a pitch deck).
-- Constraints: 4-hour run of show, projector aspect ratio, room lighting, whether it is
-  self-running or speaker-driven, offline-capable or not.
+- Constraints: **30-minute deck slot** inside the 4-hour event window, projector aspect
+  ratio, room lighting, whether it is self-running or speaker-driven, offline-capable or not.
 - Open questions with an owner and a "blocks shipping? yes/no" flag.
 
 ### 2. `docs/02-slide-spec.md`
@@ -79,6 +80,16 @@ what's next + how to get involved · thank-you/close.
 
 Add or drop slides when the narrative spine justifies it — record the reasoning in the brief.
 
+### Fitting 30 minutes
+
+The deck occupies a **30-minute slot**, not the 4-hour event window. Budget ~60–90
+seconds per slide for a speaker-driven deck, which lands the deck at roughly **18–26
+slides** including title and close. Assign estimated minutes per slide in the order table
+and make them sum to ≤ 30 with a few minutes of slack for overrun.
+
+If the mandatory sections don't fit, cut depth rather than sections — every audience
+segment in the brief needs its slide. Say in the brief what you cut and why.
+
 ## Rules
 
 - **Real copy only.** A spec that says "insert intro text here" is a failed handoff;
@@ -88,7 +99,8 @@ Add or drop slides when the narrative spine justifies it — record the reasonin
   equal visual weight").
 - Every unverified number is `PLACEHOLDER`. Guessed attendance figures presented as
   fact to sponsors in the room is the worst failure mode of this deck.
-- Keep slide count honest against the run of show. State the target minutes on stage.
+- Keep slide count honest against the 30-minute slot. State target minutes per slide and
+  the total; a deck that overruns its slot gets cut live, and the close is what gets cut.
 
 ## Exit handoff
 

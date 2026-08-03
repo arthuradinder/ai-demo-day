@@ -29,7 +29,8 @@ Status values: `⬜ BLOCKED` · `🟢 READY` · `🟡 IN PROGRESS` · `✅ COMPL
 
 ## Event deadline
 
-**Saturday, 8 August 2026 · 10:00–14:00 EAT · Nairobi**
+**Saturday, 8 August 2026 · Nairobi**
+Event window 10:00–14:00 EAT (4 hours) · **this deck's slot: 30 minutes**
 
 ## Open placeholders — must resolve before ship
 
@@ -44,3 +45,4 @@ Status values: `⬜ BLOCKED` · `🟢 READY` · `🟡 IN PROGRESS` · `✅ COMPL
 Append one dated line per handoff. Newest last.
 
 - **2026-08-03** — Stage 0: repo initialised; three pipeline skills, templates, and handoff board created. Stack locked to Vite + React + TS + Tailwind. Event facts locked; sponsors and member counts remain placeholders. Stage 1 set `READY`.
+- **2026-08-03** — Stage 0: deck slot corrected from the full 4-hour event window to **30 minutes**. Planner must budget slide minutes to sum ≤ 30 (~18–26 slides at 60–90s each); QA now verifies runtime fit as a readiness check. GitHub remote wired to `arthuradinder/ai-demo-day`.

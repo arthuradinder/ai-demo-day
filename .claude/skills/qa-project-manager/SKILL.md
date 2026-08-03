@@ -46,10 +46,13 @@ Check, in this order:
 5. **Presentation readiness** — 1920×1080 16:9; back-row legibility; contrast ≥ 4.5:1
    measured not guessed; keyboard nav incl. presenter-remote arrows; no hover-dependent
    content; works with the network off.
-6. **Build health** — `npm run build` and `npx tsc --noEmit` clean; no console errors
+6. **Runtime fit** — the deck has a **30-minute slot**. Sum the spec's per-slide minutes:
+   over 30 is `MAJOR` routed to the planner, since the fix is cutting content, not code.
+   Also sanity-check density — a slide carrying three minutes of talking is mis-specified.
+7. **Build health** — `npm run build` and `npx tsc --noEmit` clean; no console errors
    during a full pass through the deck; no committed secrets; `.gitignore` covers
    `node_modules` and `dist`.
-7. **Factual risk** — this is presented to sponsors and partners in the room. Any claim
+8. **Factual risk** — this is presented to sponsors and partners in the room. Any claim
    about attendance, funding, outcomes, or a partner relationship that isn't sourced in
    the brief is `BLOCKER` regardless of how good it looks.
 
