@@ -1,0 +1,42 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# build output
+dist/
+dist-ssr/
+build/
+*.local
+
+# env / secrets
+.env
+.env.*
+!.env.example
+*.pem
+
+# logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+
+# tooling caches
+.vite/
+.cache/
+coverage/
+*.tsbuildinfo
+
+# claude local overrides (skills in .claude/skills ARE committed)
+.claude/settings.local.json
