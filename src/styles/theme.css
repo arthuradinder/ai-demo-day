@@ -1,0 +1,122 @@
+@import 'tailwindcss';
+
+/*
+  Design tokens for the Demo Day deck.
+
+  Light palette on purpose. The room is lit and the deck runs at ~13:30 with daylight
+  in it — ambient light lifts the blacks of a dark theme and collapses its contrast,
+  while a warm paper ground stays readable. Every pair below is measured, not eyeballed;
+  ratios are recorded in docs/03-implementation-report.md.
+
+  Type scale is expressed in absolute px against a fixed 1920x1080 stage (see Stage.tsx),
+  which is then uniformly scaled to the viewport. Smallest token is 24px — the spec floor.
+*/
+@theme {
+  /* --- colour ------------------------------------------------------------ */
+  --color-paper: #faf7f2;
+  --color-paper-alt: #f2ede4;
+  --color-ink: #16130f;
+  --color-ink-soft: #4a423a;
+  --color-rule: #ded5c7;
+  --color-accent: #b4471f;
+  --color-accent-soft: #f6e7df;
+  /*
+    For accent-coloured TEXT on tinted grounds. --color-accent measures only 4.51:1 on
+    --color-accent-soft: passing, but with no margin, and the text it carries is the sponsor
+    contact detail on slide 14 — the one string in the deck that most has to survive a bad
+    projector. This deeper tone measures 6.47:1 on the same ground.
+  */
+  --color-accent-deep: #8e3616;
+  --color-teal: #1f5e5b;
+  --color-teal-soft: #e2ecea;
+
+  /* placeholder / to-be-confirmed treatment */
+  --color-tbc: #8a5a00;
+  --color-tbc-bg: #fbf1dc;
+  --color-tbc-edge: #d9a94a;
+
+  /* --- type scale (1920x1080 stage) ------------------------------------- */
+  --text-display: 128px;
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: -0.03em;
+
+  --text-h1: 88px;
+  --text-h1--line-height: 1.04;
+  --text-h1--letter-spacing: -0.025em;
+
+  --text-h2: 60px;
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.015em;
+
+  --text-figure: 108px;
+  --text-figure--line-height: 1;
+  --text-figure--letter-spacing: -0.03em;
+
+  --text-lead: 44px;
+  --text-lead--line-height: 1.3;
+
+  --text-body: 34px;
+  --text-body--line-height: 1.4;
+
+  --text-small: 28px;
+  --text-small--line-height: 1.35;
+
+  /* 24px is the floor from the design bar. Nothing may go below this. */
+  --text-micro: 24px;
+  --text-micro--line-height: 1.3;
+
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: #0e0c0a; /* letterbox surround, not a slide colour */
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+/*
+  Slide entrance. Deliberately tiny — a 180ms fade with a 6px lift. Anything more becomes
+  a distraction on a projector, and anything that loops risks burn-in on the holding slide.
+*/
+@keyframes deck-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.deck-slide {
+  animation: deck-slide-in 180ms ease-out both;
+}
+
+/* Motion is subtle and skippable. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Keyboard focus must stay visible — the deck is driven by keys. */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}

@@ -14,8 +14,10 @@ Presentation deck for the **AI Automations Training, Cohort 2 Demo Day**.
 
 ## Status
 
-Stage 0 (project setup) complete. See [docs/HANDOFF.md](docs/HANDOFF.md) for who owns the
-work right now.
+Stages 0–2 complete: **18 slides, 27.0 min of a 30-min slot**, awaiting QA sign-off.
+See [docs/HANDOFF.md](docs/HANDOFF.md) for who owns the work right now, and the
+[placeholder checklist](docs/HANDOFF.md#open-placeholders--must-resolve-before-ship) for
+the 11 facts that still block shipping.
 
 ## How this project is built
 
@@ -48,13 +50,22 @@ Start the pipeline with the `/project-planner` skill.
 
 ## Running the deck
 
-Not scaffolded yet — Stage 2 builds it. Once it exists:
-
 ```bash
 npm install
-npm run dev     # present at http://localhost:5173
-npm run build   # dist/ — static, works offline
+
+npm run dev              # present at http://localhost:5173, then press F for fullscreen
+npm run build            # typecheck + dist/ + dist/deck-standalone.html
+npm run check:contrast   # WCAG ratios for all 14 colour pairs
+npm run capture          # screenshot all 18 slides + measure (dev server must be running)
 ```
+
+**Presenter keys:** `→ ↓ Space PgDn` next · `← ↑ PgUp` back · `Home`/`End` jump ·
+`F` fullscreen · `O` overview grid · `N` speaker notes · `?` help · `Esc` close.
+A presenter remote sends arrow keys or PageUp/PageDown; both work. Clicking the left or
+right 12% of the screen also navigates.
+
+**Venue fallback:** `dist/deck-standalone.html` is a single self-contained file — CSS and
+JS inlined, no server, no node, no network. Copy it to a USB stick and double-click.
 
 ## Layout
 
@@ -62,9 +73,33 @@ npm run build   # dist/ — static, works offline
 .claude/skills/     three pipeline role skills
 docs/
   HANDOFF.md        pipeline state board — read this first
+  01..04-*.md       stage artifacts
   templates/        artifact templates each stage fills in
-src/                the deck (Stage 2)
+scripts/
+  check-contrast.mjs  WCAG verification for every colour pair
+  capture-slides.mjs  render + measure all 18 slides in headless Chromium
+  inline-dist.mjs     folds dist/ into one standalone HTML file
+src/
+  App.tsx           deck shell: nav, progress, overview, notes
+  slides/index.ts   THE single source of slide order
+  slides/*.tsx      one component per spec id
+  components/       SlideFrame, Stage, StatRow, Timeline, LogoGrid, NameGrid, Tbc
+  content/deck.ts   ALL copy and data — the only file to edit for content
+  styles/theme.css  design tokens
 ```
+
+## Editing content
+
+Everything the audience reads lives in [src/content/deck.ts](src/content/deck.ts). Nothing
+is hardcoded in a component. Unconfirmed facts are `tbc(...)` and render as a visibly
+provisional amber marker; swap to `confirmed(...)` as each is verified:
+
+```ts
+members: tbc<number>('total community members'),   // renders a dashed "TBC" well
+members: confirmed(240),                            // renders the figure
+```
+
+Grep `tbc` in that file to find everything still outstanding.
 
 ## Outstanding before the event
 

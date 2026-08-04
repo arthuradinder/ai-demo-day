@@ -32,6 +32,9 @@ Thumbs.db
 desktop.ini
 *.swp
 
+# verification output — regenerate with `npm run capture`
+screenshots/
+
 # tooling caches
 .vite/
 .cache/

@@ -1,8 +1,15 @@
 # Slide Spec — Demo Day Deck
 
-**Revision:** 1 · **Date:** 2026-08-03 · **Author:** project-planner
+**Revision:** 2 · **Date:** 2026-08-04 · **Author:** project-planner
 **Brief:** `docs/01-project-brief.md` rev 1 · **Total slides:** 18 · **Runtime:** 27.0 min of a 30-min slot (3.0 min slack)
 **Delivery:** Speaker-driven, closing the event ~13:30 – 14:00 EAT
+
+## Revision history
+
+| Rev | Date | Change |
+|---|---|---|
+| 1 | 2026-08-03 | Initial spec, 18 slides. |
+| 2 | 2026-08-04 | User supplied partner identities and logo assets. **Slide 12**: both main partner logos now required, at identical treatment. **Slide 13**: Nairobi Business Angel Network added as a third partner — rendered in its own labelled Partners band, deliberately NOT inside the sponsor grid, with the "paid for it" claim scoped to sponsors only. Headline updated to "sponsors and partners". Slide count, order, `id`s and runtime unchanged. Only slides 12 and 13 changed; the designer re-touches only those.
 
 This document is the contract. The designer implements exactly this; QA verifies against
 exactly this. Slide `id`s are stable forever — never renumber, never reuse.
@@ -404,29 +411,34 @@ Consent is a shipping requirement, not a nicety. If consent is not obtained, thi
 | Value | Meaning | Status |
 |---|---|---|
 | The AI Collective — Nairobi Chapter | Partner identity | CONFIRMED |
+| Nairobi AI Community logo asset | Host mark | CONFIRMED (rev 2) — asset supplied by user |
+| The AI Collective logo asset | Partner mark | CONFIRMED (rev 2) — asset supplied by user |
 | Partnership contribution sentence | What they provided | PLACEHOLDER |
 
-- **Visual intent:** Both organisation names at **equal visual weight** — hard constraint, mirroring `title-close`. If logos are used, identical treatment and size for both. This slide must be visually distinct from `sponsors-partners` so nobody in the room reads the partnership as a sponsorship tier.
+- **Visual intent:** Both organisation names at **equal visual weight** — hard constraint, mirroring `title-close`. **Both logos now render, at identical treatment: same box, same maximum height, same ground.** The two marks differ in shape (one square, one wide wordmark) and one has a non-transparent white background, so each sits in an identical neutral card rather than directly on the slide ground — otherwise the differing backgrounds alone would make one look privileged. This slide must be visually distinct from `sponsors-partners` so nobody in the room reads the partnership as a sponsorship tier.
 - **Notes:** Name the specific thing the partnership made possible. Vague partnership language reads as a formality and the partner's people in the room will notice.
 
 **Acceptance**
 
-1. Both organisation names render at equal visual weight, with identical treatment if logos are used.
+1. Both organisation names render at equal visual weight, and both logos render in identical boxes at identical maximum height.
 2. This slide's layout is visibly distinct from `sponsors-partners` — a viewer cannot mistake the partnership for a sponsorship tier.
 3. The partnership contribution sentence renders as visibly provisional while it remains a placeholder.
+4. If a logo asset file is absent, the slide falls back to the organisation name at full weight — never a broken image icon.
 
 ---
 
 ## Slide 13 — `sponsors-partners`
 
-- **Title:** Made possible by our sponsors
-- **Purpose:** Deliver the recognition sponsors came for. Their primary reason for being in the room.
+- **Title:** Made possible by our sponsors and partners
+- **Purpose:** Deliver the recognition sponsors came for — their primary reason for being in the room — and recognise partners who contributed without being sponsors.
 
 **Content**
 
-> Headline: Made possible by our sponsors
+> Headline: Made possible by our sponsors and partners
 > Intro: Cohort 2 was free for every participant. That was only possible because these organisations paid for it.
-> Sponsors: {{PLACEHOLDER: sponsor names, tiers, and logo assets — none confirmed at rev 1}}
+> Sponsors: {{PLACEHOLDER: sponsor names, tiers, and logo assets — none confirmed}}
+> Partners band label: In partnership with
+> Partners: Nairobi Business Angel Network
 > Footer: Thank you.
 
 **Data**
@@ -435,6 +447,18 @@ Consent is a shipping requirement, not a nicety. If consent is not obtained, thi
 |---|---|---|
 | Sponsor names, tiers, logos | Sponsor recognition | **PLACEHOLDER — none confirmed** |
 | "Free for every participant" | Programme was no-cost to participants | PLACEHOLDER — **confirm before ship; do not state if untrue** |
+| Nairobi Business Angel Network | Third partner, added rev 2 | CONFIRMED — name only |
+| NBAN logo asset | Partner mark | PLACEHOLDER — not supplied |
+| NBAN contribution | What NBAN provided | PLACEHOLDER — **role unknown; do not imply they funded the cohort** |
+
+### Partners are not sponsors — rev 2
+
+The Nairobi Business Angel Network is a **partner**, not a sponsor. It must render in its
+own labelled band, visually separated from the sponsor grid, and the "these organisations
+paid for it" sentence must be scoped so it reads as applying to the sponsor grid alone.
+Nothing on this slide may imply NBAN paid for the cohort — that is unverified, and the
+room includes people who would know. If NBAN's actual contribution is confirmed later,
+it belongs in the partner band's own line, not in the sponsor sentence.
 
 Two hard rules for this slide:
 
@@ -450,6 +474,7 @@ Two hard rules for this slide:
 2. Placeholder sponsor slots render as visibly and unmistakably provisional, sized for real logo assets.
 3. Sponsor entries render at broadly comparable visual weight; no entry is rendered so small it reads as an afterthought relative to the others.
 4. Sponsor names, tiers, and logo paths are editable from one place in the content file, with no sponsor data hardcoded in components.
+5. Nairobi Business Angel Network renders in a separately labelled partner band, outside the sponsor grid, and no text on the slide states or implies that it paid for the cohort.
 
 ---
 
