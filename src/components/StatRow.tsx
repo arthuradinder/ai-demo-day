@@ -16,10 +16,10 @@ export function StatRow({ stats }: { stats: readonly Stat[] }) {
       {stats.map((stat) => (
         <div
           key={stat.label}
-          className="flex flex-1 flex-col items-start gap-[20px] border-t-[6px] border-rule pt-[32px]"
+          className="flex flex-1 flex-col items-start gap-[20px] border-t-[6px] border-edge pt-[32px]"
         >
           <FactFigure fact={stat.figure} />
-          <p className="text-body font-medium text-ink-soft">{stat.label}</p>
+          <p className="text-body font-medium text-fg-soft">{stat.label}</p>
         </div>
       ))}
     </div>

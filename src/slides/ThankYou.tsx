@@ -13,30 +13,30 @@ export function ThankYou() {
   const groups = c.groups.status === 'confirmed' ? c.groups.items : [];
 
   return (
-    <section className="flex h-[1080px] w-[1920px] flex-col justify-center bg-paper px-[128px] py-[96px]">
-      <h2 className="text-display font-bold text-ink">{c.headline}</h2>
+    <section className="flex h-[1080px] w-[1920px] flex-col justify-center bg-canvas px-[128px] py-[96px]">
+      <h2 className="text-display font-bold text-fg">{c.headline}</h2>
 
       <ul className="mt-[56px] flex flex-col gap-[20px]">
         {groups.map((g) => (
           <li key={g.who} className="flex items-baseline gap-[20px]">
-            <span aria-hidden className="h-[5px] w-[40px] flex-none bg-accent" />
-            <span className="text-h2 font-semibold text-ink">{g.who}</span>
-            <span className="text-body text-ink-soft">— {g.reason}</span>
+            <span aria-hidden className="h-[5px] w-[40px] flex-none bg-flame" />
+            <span className="text-h2 font-semibold text-fg">{g.who}</span>
+            <span className="text-body text-fg-soft">— {g.reason}</span>
           </li>
         ))}
 
         {c.venueHost ? (
           <li className="flex items-baseline gap-[20px]">
-            <span aria-hidden className="h-[5px] w-[40px] flex-none bg-accent" />
-            <span className="text-h2 font-semibold text-ink">
+            <span aria-hidden className="h-[5px] w-[40px] flex-none bg-flame" />
+            <span className="text-h2 font-semibold text-fg">
               <FactValue fact={c.venueHost.who} />
             </span>
-            <span className="text-body text-ink-soft">— {c.venueHost.reason}</span>
+            <span className="text-body text-fg-soft">— {c.venueHost.reason}</span>
           </li>
         ) : null}
       </ul>
 
-      <p className="mt-[64px] text-h1 font-bold text-accent">{c.kicker}</p>
+      <p className="mt-[64px] text-h1 font-bold text-flame">{c.kicker}</p>
     </section>
   );
 }

@@ -14,7 +14,7 @@ import { cohort2Programme as c } from '../content/deck';
 export function Cohort2Programme() {
   return (
     <SlideFrame headline={c.headline}>
-      <p className="mb-[44px] text-lead font-medium text-teal">
+      <p className="mb-[44px] text-lead font-medium text-blue">
         <FactValue fact={c.introWeeks} /> {c.introAfter}
       </p>
 
@@ -23,11 +23,11 @@ export function Cohort2Programme() {
           <li key={step} className="flex items-start gap-[28px]">
             <span
               aria-hidden
-              className="flex h-[60px] w-[60px] flex-none items-center justify-center rounded-full bg-teal-soft text-small font-bold text-teal"
+              className="flex h-[60px] w-[60px] flex-none items-center justify-center rounded-full bg-panel text-small font-bold text-blue"
             >
               {i + 1}
             </span>
-            <span className="max-w-[1480px] text-body text-ink">{step}</span>
+            <span className="max-w-[1480px] text-body text-fg">{step}</span>
           </li>
         ))}
       </ol>

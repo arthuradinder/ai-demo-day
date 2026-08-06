@@ -1,47 +1,71 @@
-import { event, titleClose } from '../content/deck';
+import { Logo } from '../components/Logo';
+import { event, logos, logoScale, titleClose } from '../content/deck';
 
 /**
  * Slide 1 — `title-close`
  *
- * Host and partner render as a matched pair at identical size and colour. This is a hard
- * brand constraint from the spec, not a styling preference: The AI Collective co-owns the
- * event's credibility and must not read as subordinate to the host anywhere in the deck.
+ * Deliberately built as a sibling of the promo poster rather than a generic title slide:
+ * the gradient "AI" above a heavy white "DEMO DAY", the three-part SHOWCASE / CONNECT /
+ * BUILD THE FUTURE tagline, and the "INNOVATE LOCALLY. IMPACT GLOBALLY." footer are all
+ * lifted from it. Anyone who saw the poster should recognise this instantly.
+ *
+ * Host and partner render as a matched pair at identical size. This is a hard brand
+ * constraint, not a styling preference: The AI Collective co-owns the event's credibility
+ * and must not read as subordinate to the host anywhere in the deck.
  */
 export function TitleClose() {
   return (
-    <section className="flex h-[1080px] w-[1920px] flex-col justify-between bg-paper px-[128px] py-[96px]">
-      {/*
-        Equal-weight organisation pairing.
-
-        The partner's qualifier sits on its own line rather than inside the name. Rendering
-        "The AI Collective — Nairobi Chapter" as one 60px string overflows the 1664px
-        content width and breaks mid-phrase ("...— Nairobi / Chapter"), which reads as
-        careless about the partner's name. Splitting it keeps both organisation names on
-        one line each at identical size — which is what the equal-weight constraint is
-        actually protecting — and matches the treatment on `partnership-aic`.
-      */}
-      <div className="flex items-center gap-[36px]">
-        <p className="text-h2 font-bold whitespace-nowrap text-ink">{event.host}</p>
-        <span aria-hidden className="text-h2 font-light text-accent">
-          ×
-        </span>
-        <p className="text-h2 font-bold whitespace-nowrap text-ink">
-          {event.partner}
-          <span className="block text-small font-semibold tracking-[0.14em] text-ink-soft uppercase">
-            {event.partnerQualifier}
-          </span>
-        </p>
+    <section className="canvas-glow flex h-[1080px] w-[1920px] flex-col justify-between bg-canvas px-[128px] py-[80px]">
+      {/* Equal-weight organisation pairing, echoing the poster's header. */}
+      <div className="flex items-center gap-[56px]">
+        <Logo src={logos.host} name={event.host} opticalScale={logoScale.host} compact />
+        <span aria-hidden className="h-[96px] w-[2px] flex-none bg-edge" />
+        <Logo
+          src={logos.partner}
+          name={event.partner}
+          subtitle={event.partnerQualifier}
+          opticalScale={logoScale.partner}
+          compact
+        />
       </div>
 
-      <div>
-        <h1 className="text-display font-bold text-ink">{titleClose.headline}</h1>
-        <p className="mt-[24px] text-h2 font-semibold text-accent">{titleClose.subhead}</p>
+      <div className="flex items-end justify-between">
+        <div>
+          {/*
+            Gradient "AI" — the poster's signature mark. inline-block is load-bearing: as a
+            block element the gradient spans the full 1664px content width while "AI"
+            occupies only the first ~8% of it, so the glyphs sample pure blue and the
+            blue→orange transition never appears. Sizing the box to the text fixes it.
+          */}
+          <p
+            aria-hidden
+            className="rule-gradient inline-block bg-clip-text text-display font-bold text-transparent"
+          >
+            {titleClose.headlineAccent}
+          </p>
+          <h1 className="text-display font-bold text-fg">
+            <span className="sr-only">{titleClose.headlineAccent} </span>
+            {titleClose.headline}
+          </h1>
+
+          <span aria-hidden className="rule-gradient mt-[28px] block h-[8px] w-[420px]" />
+
+          <p className="mt-[28px] text-h2 font-bold">
+            <span className="text-blue">{titleClose.tagline[0]} </span>
+            <span className="text-flame-bright">{titleClose.tagline[1]}</span>
+            <span className="block text-fg">{titleClose.tagline[2]}</span>
+          </p>
+        </div>
+
+        <div className="pb-[8px] text-right">
+          <p className="text-lead font-semibold text-fg">{titleClose.subhead}</p>
+          <p className="mt-[12px] text-body text-fg-soft">{titleClose.meta}</p>
+        </div>
       </div>
 
-      <div className="flex items-end justify-between border-t-[6px] border-rule pt-[36px]">
-        <p className="text-lead font-medium text-ink-soft">{titleClose.meta}</p>
-        <span aria-hidden className="h-[28px] w-[140px] bg-accent" />
-      </div>
+      <p className="text-small font-semibold tracking-[0.28em] text-fg-soft uppercase">
+        {titleClose.footerTagline}
+      </p>
     </section>
   );
 }

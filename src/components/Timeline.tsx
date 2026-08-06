@@ -29,19 +29,19 @@ export function Timeline({ milestones }: { milestones: readonly Milestone[] }) {
               <span
                 className={
                   today
-                    ? 'mt-[10px] h-[30px] w-[30px] flex-none rounded-full bg-accent'
-                    : 'mt-[14px] h-[22px] w-[22px] flex-none rounded-full border-[5px] border-teal bg-paper'
+                    ? 'mt-[10px] h-[30px] w-[30px] flex-none rounded-full bg-flame'
+                    : 'mt-[14px] h-[22px] w-[22px] flex-none rounded-full border-[5px] border-blue bg-canvas'
                 }
               />
-              {!isLast ? <span className="w-[5px] flex-1 bg-rule" /> : null}
+              {!isLast ? <span className="w-[5px] flex-1 bg-edge" /> : null}
             </div>
 
             <div className={`flex flex-1 items-baseline gap-[40px] ${isLast ? '' : 'pb-[28px]'}`}>
               <p
                 className={
                   today
-                    ? 'w-[400px] flex-none text-h2 font-bold whitespace-nowrap text-accent'
-                    : 'w-[400px] flex-none text-body font-semibold tracking-[0.04em] text-teal'
+                    ? 'w-[400px] flex-none text-h2 font-bold whitespace-nowrap text-flame'
+                    : 'w-[400px] flex-none text-body font-semibold tracking-[0.04em] text-blue'
                 }
               >
                 <FactValue fact={m.date} />
@@ -50,8 +50,8 @@ export function Timeline({ milestones }: { milestones: readonly Milestone[] }) {
               <p
                 className={
                   today
-                    ? 'flex-1 text-h2 font-bold tracking-[0.08em] text-accent uppercase'
-                    : 'flex-1 text-body font-medium text-ink'
+                    ? 'flex-1 text-h2 font-bold tracking-[0.08em] text-flame uppercase'
+                    : 'flex-1 text-body font-medium text-fg'
                 }
               >
                 <FactValue fact={m.label} />

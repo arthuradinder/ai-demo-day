@@ -1,7 +1,56 @@
 # Project Brief — Demo Day Deck
 
-**Revision:** 1 · **Date:** 2026-08-03 · **Author:** project-planner
-**Status:** COMPLETE — handed to `frontend-designer`
+**Revision:** 2 · **Date:** 2026-08-05 · **Author:** project-planner
+**Status:** ⚠️ NARRATIVE PREMISE INVALIDATED — see "Run of show" below. Content rework pending.
+
+## Revision history
+
+| Rev | Date | Change |
+|---|---|---|
+| 1 | 2026-08-03 | Initial brief. Assumed a 30-minute **closing** deck at ~13:30, retrospective in tone. |
+| 2 | 2026-08-05 | User supplied the promo poster and the real run of show. Venue, start time and event taglines now CONFIRMED. **The run of show invalidates rev 1's narrative spine** — the deck's slot is the 12:30 introductory welcome, ~15 minutes, *before* the team presentations. Recorded below; copy rework not yet done. |
+
+## Run of show — CONFIRMED, and it changes the deck
+
+| Time | What happens |
+|---|---|
+| 10:00 – 12:00 | Guests arrive. Talent at workstations across the room with products displayed, ready to interact. Business owners ask questions. |
+| 12:00 – 12:30 | Light snacks; people wind up at the workstations. |
+| **12:30 – 12:45** | **Introductory welcome — Arthur Adinda** (Software Developer, Business Developer, Entrepreneur, Country Lead AI Collective Kenya). Virtual speech from the Lead Organizer at Nairobi AI Community. Covers Nairobi AI Community and The AI Collective. **← this deck's slot** |
+| 12:45 – 13:45 | 6 teams present capstone projects on stage for the judges. |
+| 13:45 – 14:00 | Judges deliberate, awards given, ceremony closes. |
+
+### The problem this creates
+
+Rev 1 built the deck as a **closing** act: 30 minutes at ~13:30, opening on
+*"you have just watched Cohort 2 build things that did not exist this morning."*
+The real slot is the **opening welcome at 12:30, roughly 15 minutes, before any team has
+presented.** Three consequences:
+
+1. **The narrative spine is now false.** At 12:30 the audience has browsed workstations but
+   has not seen the capstone presentations. The retrospective framing must invert to an
+   introduction that *sets up* what is about to happen.
+2. **Runtime must roughly halve** — 27.0 min into a ~15 min slot. Around 10–12 slides.
+3. **Two slides are factually wrong at 12:30** and must be recast or cut:
+   `what-you-just-saw` (slide 2) and `cohort2-showcase-recap` ("Everything you saw today",
+   slide 9). Slides framed as farewell (`thank-you`, `close-holding`) also sit oddly before
+   the main event, though a holding slide still works during the presentations.
+
+**Not yet actioned.** The user scoped the current pass to visual redesign and said content
+comes next. This is the top item for that pass.
+
+### New confirmed facts from the poster and agenda
+
+| Fact | Value | Was |
+|---|---|---|
+| Venue | ALX, The Piano — 171 Brookside Dr, Nairobi | PLACEHOLDER |
+| Doors / start | 10:00 AM | partially known |
+| Teams presenting | 6 | PLACEHOLDER |
+| Format | Capstone presentations judged; one Cohort 2 winner | not known |
+| Opening speaker | Arthur Adinda — Country Lead, AI Collective Kenya | not known |
+| Second speaker | Lead Organizer, Nairobi AI Community — **virtual** | not known |
+| Event taglines | "Showcase. Connect. Build the future." · "Innovate locally. Impact globally." | not known |
+| Poster pillars | Showcase / Connect / Solve | not known |
 
 ## Event facts
 

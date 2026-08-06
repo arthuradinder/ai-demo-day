@@ -10,14 +10,14 @@ export function SlideFrame({
   eyebrow,
   headline,
   children,
-  tone = 'paper',
+  tone = 'canvas',
   align = 'top',
   headlineSize = 'h1',
 }: {
   eyebrow?: string;
   headline?: string;
   children?: ReactNode;
-  tone?: 'paper' | 'alt' | 'accent';
+  tone?: 'canvas' | 'alt' | 'panel';
   align?: 'top' | 'center';
   /**
    * Drop to `h2` on content-dense slides whose headline would otherwise wrap to two lines
@@ -26,27 +26,32 @@ export function SlideFrame({
   headlineSize?: 'h1' | 'h2';
 }) {
   const ground =
-    tone === 'accent' ? 'bg-accent-soft' : tone === 'alt' ? 'bg-paper-alt' : 'bg-paper';
+    tone === 'panel' ? 'bg-panel' : tone === 'alt' ? 'bg-canvas-alt' : 'bg-canvas';
 
   return (
     <section
-      className={`flex h-[1080px] w-[1920px] flex-col ${ground} px-[128px] py-[96px] ${
+      className={`canvas-glow flex h-[1080px] w-[1920px] flex-col ${ground} px-[128px] py-[96px] ${
         align === 'center' ? 'justify-center' : ''
       }`}
     >
       {eyebrow ? (
-        <p className="mb-[28px] text-small font-semibold tracking-[0.16em] text-ink-soft uppercase">
+        <p className="mb-[28px] text-small font-semibold tracking-[0.16em] text-fg-soft uppercase">
           {eyebrow}
         </p>
       ) : null}
       {headline ? (
-        <h2
-          className={`mb-[44px] max-w-[1560px] font-bold text-ink ${
-            headlineSize === 'h2' ? 'text-h2' : 'text-h1'
-          }`}
-        >
-          {headline}
-        </h2>
+        <div className="mb-[44px]">
+          <h2
+            className={`max-w-[1560px] font-bold text-fg ${
+              headlineSize === 'h2' ? 'text-h2' : 'text-h1'
+            }`}
+          >
+            {headline}
+          </h2>
+          {/* The poster's blue→orange rule, reused as the headline underline so slides read
+              as siblings of the promo art rather than as an unrelated deck. */}
+          <span aria-hidden className="rule-gradient mt-[22px] block h-[7px] w-[280px]" />
+        </div>
       ) : null}
       {children}
     </section>
@@ -56,8 +61,8 @@ export function SlideFrame({
 /** The emphasised closing line used on several slides. Visually distinct from body copy. */
 export function Kicker({ children }: { children: ReactNode }) {
   return (
-    <p className="mt-auto flex items-start gap-[24px] text-lead font-semibold text-accent">
-      <span aria-hidden className="mt-[18px] h-[6px] w-[64px] flex-none bg-accent" />
+    <p className="mt-auto flex items-start gap-[24px] text-lead font-semibold text-flame-bright">
+      <span aria-hidden className="rule-gradient mt-[18px] h-[6px] w-[64px] flex-none" />
       <span className="max-w-[1440px]">{children}</span>
     </p>
   );
@@ -66,6 +71,6 @@ export function Kicker({ children }: { children: ReactNode }) {
 /** A quiet aside, subordinate to whatever sits above it. */
 export function Footnote({ children }: { children: ReactNode }) {
   return (
-    <p className="mt-auto max-w-[1440px] text-body text-ink-soft italic">{children}</p>
+    <p className="mt-auto max-w-[1440px] text-body text-fg-soft italic">{children}</p>
   );
 }

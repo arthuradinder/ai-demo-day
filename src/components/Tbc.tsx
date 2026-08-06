@@ -55,7 +55,7 @@ export function FactValue<T extends string | number>({
  */
 export function FactFigure({ fact }: { fact: Fact<string | number> }) {
   if (fact.status === 'confirmed') {
-    return <span className="text-figure font-bold text-accent">{fact.value}</span>;
+    return <span className="text-figure font-bold text-flame">{fact.value}</span>;
   }
   return (
     <span

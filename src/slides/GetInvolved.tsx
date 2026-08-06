@@ -1,35 +1,43 @@
-import { SlideFrame, Footnote } from '../components/SlideFrame';
-import { FactValue } from '../components/Tbc';
+import { SlideFrame } from '../components/SlideFrame';
+import { Qr } from '../components/Qr';
 import { getInvolved as c } from '../content/deck';
 
 /**
- * Slide 16 — `get-involved`
+ * Slide 13 — `get-involved`
  *
- * The deck's primary call to action: four parallel routes at equal weight, each pairing an
- * audience question with a single action.
+ * Rev 3: two routes, not four. Applying has its own QR; mentoring, sponsoring and joining all
+ * converge on the community's LinkedIn page, which is how the user wants people to reach them.
  *
- * Highest-stakes slide for legibility in the whole deck — every link must be readable and
- * photographable from the back row, so link text is set at h2 rather than body size.
+ * Collapsing three destinations into one entry is deliberate. Three rows pointing at the same
+ * URL reads as padding and buries the one real distinction on the slide — build with us, or
+ * talk to us.
  *
- * If a QR code is ever added here it must sit alongside the written URL, never replace it:
- * a projected QR is unusable from the back row and unusable at an angle.
+ * Every QR sits beside its written URL, never replacing it: a projected code is unscannable
+ * from the back of a lit room and unscannable at an angle.
  */
 export function GetInvolved() {
   return (
     <SlideFrame headline={c.headline}>
-      <div className="grid grid-cols-2 gap-x-[64px] gap-y-[40px]">
-        {c.routes.map((r) => (
-          <div key={r.question} className="border-t-[6px] border-rule pt-[26px]">
-            <p className="text-body font-semibold text-teal">{r.question}</p>
-            <p className="mt-[10px] text-h2 font-bold text-ink">{r.action}</p>
-            <p className="mt-[14px] text-body font-semibold break-words text-accent">
-              <FactValue fact={r.target} />
-            </p>
+      {/* Codes at full size, not `sm`: the slide has the room, and a bigger code is a code
+          that scans from further back. This is the deck's highest-conversion slide. */}
+      <div className="grid grid-cols-2 gap-x-[80px]">
+        <div className="border-t-[6px] border-flame pt-[28px]">
+          <p className="text-body font-semibold text-blue">{c.build.question}</p>
+          <p className="mt-[10px] text-h2 font-bold text-fg">{c.build.action}</p>
+          <p className="mt-[8px] text-body text-fg-soft">{c.build.detail}</p>
+          <div className="mt-[32px]">
+            <Qr src={c.build.qr} url={c.build.url} />
           </div>
-        ))}
-      </div>
+        </div>
 
-      <Footnote>{c.footer}</Footnote>
+        <div className="border-t-[6px] border-edge pt-[28px]">
+          <p className="text-body font-semibold text-blue">{c.reach.question}</p>
+          <p className="mt-[10px] text-h2 font-bold text-fg">{c.reach.action}</p>
+          <div className="mt-[32px]">
+            <Qr src={c.reach.qr} url={c.reach.url} label={c.reach.label} />
+          </div>
+        </div>
+      </div>
     </SlideFrame>
   );
 }

@@ -3,37 +3,43 @@
 /*
   Design tokens for the Demo Day deck.
 
-  Light palette on purpose. The room is lit and the deck runs at ~13:30 with daylight
-  in it — ambient light lifts the blacks of a dark theme and collapses its contrast,
-  while a warm paper ground stays readable. Every pair below is measured, not eyeballed;
-  ratios are recorded in docs/03-implementation-report.md.
+  Palette sampled from the event poster (public/logos/demo-day-poster.png): a deep navy-black
+  ground, electric blue and vermilion as the twin accents, white for display type, and a
+  muted blue-grey for secondary text. The poster's blue→orange gradient rule is reproduced
+  as `.rule-gradient`.
 
-  Type scale is expressed in absolute px against a fixed 1920x1080 stage (see Stage.tsx),
-  which is then uniformly scaled to the viewport. Smallest token is 24px — the spec floor.
+  On the dark ground: the earlier light palette was chosen because the room is lit and
+  ambient light lifts the blacks of a dark theme. That trade-off is real and unchanged — but
+  white on this ground measures 19.7:1, roughly double the headroom the old dark-on-light
+  body text had, so there is a lot of contrast to lose before anything becomes unreadable.
+  What degrades is crispness of the background, not legibility of the text.
+
+  Every pair is measured by scripts/check-contrast.mjs, not eyeballed.
+
+  Type scale is absolute px against a fixed 1920x1080 stage (see Stage.tsx), which is then
+  uniformly scaled to the viewport. Smallest token is 24px — the spec floor.
 */
 @theme {
-  /* --- colour ------------------------------------------------------------ */
-  --color-paper: #faf7f2;
-  --color-paper-alt: #f2ede4;
-  --color-ink: #16130f;
-  --color-ink-soft: #4a423a;
-  --color-rule: #ded5c7;
-  --color-accent: #b4471f;
-  --color-accent-soft: #f6e7df;
-  /*
-    For accent-coloured TEXT on tinted grounds. --color-accent measures only 4.51:1 on
-    --color-accent-soft: passing, but with no margin, and the text it carries is the sponsor
-    contact detail on slide 14 — the one string in the deck that most has to survive a bad
-    projector. This deeper tone measures 6.47:1 on the same ground.
-  */
-  --color-accent-deep: #8e3616;
-  --color-teal: #1f5e5b;
-  --color-teal-soft: #e2ecea;
+  /* --- ground ------------------------------------------------------------ */
+  --color-canvas: #070b14;
+  --color-canvas-alt: #0c1422;
+  --color-panel: #111c2e;
+  --color-edge: #223148;
 
-  /* placeholder / to-be-confirmed treatment */
-  --color-tbc: #8a5a00;
-  --color-tbc-bg: #fbf1dc;
-  --color-tbc-edge: #d9a94a;
+  /* --- type ------------------------------------------------------------- */
+  --color-fg: #ffffff;
+  --color-fg-soft: #9daac0;
+
+  /* --- accents (the poster's two) --------------------------------------- */
+  --color-blue: #2e93f7;
+  --color-blue-bright: #5baeff;
+  --color-flame: #f0512b;
+  --color-flame-bright: #ff7a4d;
+
+  /* --- placeholder / to-be-confirmed treatment -------------------------- */
+  --color-tbc: #f7c860;
+  --color-tbc-bg: #241a08;
+  --color-tbc-edge: #8a6b1f;
 
   /* --- type scale (1920x1080 stage) ------------------------------------- */
   --text-display: 128px;
@@ -78,11 +84,29 @@ body,
 }
 
 body {
-  background: #0e0c0a; /* letterbox surround, not a slide colour */
-  color: var(--color-ink);
+  background: #02030a; /* letterbox surround, darker than any slide ground */
+  color: var(--color-fg);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
+}
+
+/*
+  The poster's signature divider: a blue→orange gradient bar. Used in place of the flat
+  rules the light theme used, so slides read as siblings of the poster.
+*/
+.rule-gradient {
+  background-image: linear-gradient(90deg, var(--color-blue) 0%, var(--color-flame) 100%);
+}
+
+/*
+  Very faint radial lift behind the top-left of a slide, echoing the poster's glow. Kept
+  subtle: on a washed-out projector it should read as nothing rather than as a smudge.
+*/
+.canvas-glow {
+  background-image:
+    radial-gradient(900px 520px at 12% -10%, rgba(46, 147, 247, 0.13), transparent 70%),
+    radial-gradient(760px 460px at 92% 8%, rgba(240, 81, 43, 0.09), transparent 72%);
 }
 
 /*
@@ -117,6 +141,6 @@ body {
 
 /* Keyboard focus must stay visible — the deck is driven by keys. */
 :focus-visible {
-  outline: 3px solid var(--color-accent);
+  outline: 3px solid var(--color-blue-bright);
   outline-offset: 3px;
 }

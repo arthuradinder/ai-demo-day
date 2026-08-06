@@ -10,13 +10,13 @@ import { whyToday as c } from '../content/deck';
 export function WhyToday() {
   return (
     <SlideFrame headline={c.headline}>
-      <p className="mb-[52px] max-w-[1560px] text-lead font-medium text-teal">{c.intro}</p>
+      <p className="mb-[52px] max-w-[1560px] text-lead font-medium text-blue">{c.intro}</p>
 
       <div className="grid grid-cols-2 gap-x-[64px] gap-y-[44px]">
         {c.groups.map((g) => (
-          <div key={g.label} className="border-t-[6px] border-rule pt-[26px]">
-            <p className="text-h2 font-bold text-accent">{g.label}</p>
-            <p className="mt-[14px] text-body text-ink">{g.body}</p>
+          <div key={g.label} className="border-t-[6px] border-edge pt-[26px]">
+            <p className="text-h2 font-bold text-flame">{g.label}</p>
+            <p className="mt-[14px] text-body text-fg">{g.body}</p>
           </div>
         ))}
       </div>

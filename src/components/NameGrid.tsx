@@ -41,9 +41,9 @@ export function NameGrid({
   return (
     <div className={`grid ${cols} gap-x-[48px] gap-y-[28px]`}>
       {entries.items.map((p) => (
-        <div key={p.name} className="border-l-[6px] border-teal pl-[24px]">
-          <p className="text-h2 font-semibold text-ink">{p.name}</p>
-          {p.role ? <p className="text-small text-ink-soft">{p.role}</p> : null}
+        <div key={p.name} className="border-l-[6px] border-blue pl-[24px]">
+          <p className="text-h2 font-semibold text-fg">{p.name}</p>
+          {p.role ? <p className="text-small text-fg-soft">{p.role}</p> : null}
         </div>
       ))}
     </div>
@@ -79,9 +79,9 @@ export function ProjectGrid({ projects }: { projects: FactList<Project> }) {
   return (
     <div className="grid grid-cols-3 gap-x-[40px] gap-y-[28px]">
       {projects.items.map((p) => (
-        <div key={`${p.title}-${p.builder}`} className="border-l-[6px] border-accent pl-[24px]">
-          <p className="text-h2 font-semibold text-ink">{p.title}</p>
-          <p className="text-small text-ink-soft">{p.builder}</p>
+        <div key={`${p.title}-${p.builder}`} className="border-l-[6px] border-flame pl-[24px]">
+          <p className="text-h2 font-semibold text-fg">{p.title}</p>
+          <p className="text-small text-fg-soft">{p.builder}</p>
         </div>
       ))}
     </div>

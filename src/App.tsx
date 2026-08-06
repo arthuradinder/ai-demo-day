@@ -2,9 +2,12 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { Stage } from './components/Stage';
 import { speakerNotes } from './content/deck';
-import { slides, totalMinutes } from './slides/index';
+import { slides, totalMinutes, virtualAddressMinutes } from './slides/index';
 
 type Overlay = 'none' | 'overview' | 'notes' | 'help';
+
+/** The 12:30–12:45 introductory-welcome slot, per brief rev 2's run of show. */
+const SLOT_MINUTES = 15;
 
 /**
  * Deck shell: keyboard navigation, click zones, progress, overview, speaker notes.
@@ -152,7 +155,7 @@ function Chrome({
         aria-hidden
         className="pointer-events-none absolute bottom-0 left-0 h-[6px] w-full bg-black/25"
       >
-        <div className="h-full bg-accent transition-[width] duration-300" style={{ width: `${pct}%` }} />
+        <div className="h-full bg-flame transition-[width] duration-300" style={{ width: `${pct}%` }} />
       </div>
       <p className="pointer-events-none absolute right-[18px] bottom-[16px] font-sans text-[15px] font-semibold tracking-[0.1em] text-white/70 tabular-nums">
         {index + 1} / {total} · {minutes.toFixed(1)} min budget · press ? for keys
@@ -174,7 +177,11 @@ function Overview({
     <div className="absolute inset-0 overflow-auto bg-[#0e0c0a] p-[24px]">
       <div className="mb-[18px] flex items-baseline justify-between">
         <h1 className="font-sans text-[20px] font-bold text-white">
-          Deck overview · {slides.length} slides · {totalMinutes.toFixed(1)} of 30 min
+          Deck overview · {slides.length} slides · {totalMinutes.toFixed(1)} min for the{' '}
+          {SLOT_MINUTES}-min slot
+          {virtualAddressMinutes > 0
+            ? ` · ${virtualAddressMinutes.toFixed(1)} of that is the virtual address`
+            : ''}
         </h1>
         <button
           type="button"
@@ -191,7 +198,7 @@ function Overview({
             key={s.id}
             type="button"
             onClick={() => onPick(i)}
-            className={`text-left ${i === index ? 'ring-[4px] ring-accent' : 'ring-[2px] ring-white/15'}`}
+            className={`text-left ${i === index ? 'ring-[4px] ring-blue' : 'ring-[2px] ring-white/15'}`}
           >
             <Stage scale={0.155}>
               <s.Component />
@@ -215,7 +222,7 @@ function Notes({ index, onClose }: { index: number; onClose: () => void }) {
   if (!current) return null;
 
   return (
-    <div className="absolute inset-x-0 bottom-0 max-h-[45vh] overflow-auto border-t-[3px] border-accent bg-[#0e0c0a]/97 p-[24px] font-sans text-white">
+    <div className="absolute inset-x-0 bottom-0 max-h-[45vh] overflow-auto border-t-[3px] border-flame bg-[#0e0c0a]/97 p-[24px] font-sans text-white">
       <div className="mb-[10px] flex items-baseline justify-between">
         <p className="text-[15px] font-bold tracking-[0.12em] uppercase">
           Speaker notes · {current.minutes} min
@@ -259,7 +266,7 @@ function Help({ onClose }: { onClose: () => void }) {
         <dl className="flex flex-col gap-[10px]">
           {keys.map(([k, v]) => (
             <div key={k} className="flex items-baseline gap-[18px]">
-              <dt className="w-[220px] flex-none font-mono text-[15px] text-accent">{k}</dt>
+              <dt className="w-[220px] flex-none font-mono text-[15px] text-flame">{k}</dt>
               <dd className="text-[17px] text-white/90">{v}</dd>
             </div>
           ))}

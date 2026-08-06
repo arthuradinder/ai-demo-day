@@ -1,18 +1,75 @@
 # Slide Spec — Demo Day Deck
 
-**Revision:** 2 · **Date:** 2026-08-04 · **Author:** project-planner
-**Brief:** `docs/01-project-brief.md` rev 1 · **Total slides:** 18 · **Runtime:** 27.0 min of a 30-min slot (3.0 min slack)
-**Delivery:** Speaker-driven, closing the event ~13:30 – 14:00 EAT
+**Revision:** 3 · **Date:** 2026-08-06 · **Author:** project-planner
+**Brief:** `docs/01-project-brief.md` rev 2 · **Total slides:** 14 · **Runtime:** 15.0 min for the 12:30–12:45 slot
+**Delivery:** Speaker-driven — Arthur Adinda opens. A virtual address from the Nairobi AI
+Community Lead Organizer sits inside the slot (4.0 of the 15.0 min), leaving 11.0 min of
+spoken slides.
 
 ## Revision history
 
 | Rev | Date | Change |
 |---|---|---|
-| 1 | 2026-08-03 | Initial spec, 18 slides. |
-| 2 | 2026-08-04 | User supplied partner identities and logo assets. **Slide 12**: both main partner logos now required, at identical treatment. **Slide 13**: Nairobi Business Angel Network added as a third partner — rendered in its own labelled Partners band, deliberately NOT inside the sponsor grid, with the "paid for it" claim scoped to sponsors only. Headline updated to "sponsors and partners". Slide count, order, `id`s and runtime unchanged. Only slides 12 and 13 changed; the designer re-touches only those.
+| 1 | 2026-08-03 | Initial spec, 18 slides, 27.0 min, built as a **closing** deck at ~13:30. |
+| 2 | 2026-08-04 | Partner logos required on slide 12; NBAN added as a third partner in its own band on slide 13. |
+| 3 | 2026-08-06 | **Major content rework from the user's slide-by-slide direction.** Deck is now the **12:30 opening welcome, 15.0 min, 14 slides**. Real figures replace almost every placeholder. 5 slides removed, 2 retired and replaced with new `id`s, 2 merged. See "Rev 3 changes". |
+
+## Rev 3 changes
+
+The deck is no longer retrospective. It runs at **12:30, before the capstone presentations**,
+so the spine shifts from *"you have just watched"* to *"here is who we are, and here is what
+you are about to watch."*
+
+| Old | Action | Now |
+|---|---|---|
+| 2 `what-you-just-saw` | recast around the workstation hour (10:00–12:00) instead of presentations that have not happened; graduate framing and programme length dropped | kept |
+| 4 `origin-story` | real copy; **retitled** — "It started with a group chat" contradicted a 5-year-old community and a leadership meeting | kept |
+| 5 `journey-timeline` | all 7 milestones now CONFIRMED | kept |
+| 6 `community-today` | all 4 figures now CONFIRMED | kept |
+| 7 `cohort2-programme` | 15 weeks confirmed; 4 real steps | kept |
+| 8 `cohort2-by-numbers` | **retired** — replaced by the virtual address | `virtual-address` |
+| 9 `cohort2-showcase-recap` | **retired** — a roll of honour for work not yet shown makes no sense at 12:30 | `capstone-lineup` |
+| 10 `graduate-voice` | **removed** | — |
+| 11 `mentors-facilitators` | 5 real names + roles; retitled "The people who made it happen" | kept |
+| 12 `partnership-aic` | **merged into 13** | — |
+| 13 `sponsors-partners` | main partners + sponsor grid on one slide | kept |
+| 14 `sponsor-impact-cta` | **removed** | — |
+| 15 `whats-next` | real Cohort 3 URL as a QR code; optional-initiative rows dropped | kept |
+| 16 `get-involved` | QR for applications; every other route to LinkedIn | kept |
+| 17 `thank-you` | venue host confirmed as ALX, The Piano | kept |
+| 18 `close-holding` | **removed** | — |
+
+Retired `id`s (`cohort2-by-numbers`, `cohort2-showcase-recap`, `graduate-voice`,
+`partnership-aic`, `sponsor-impact-cta`, `close-holding`) are **never reused**.
+
+### Two conflicts recorded, not silently resolved
+
+1. **Team count.** The run of show in brief rev 2 says *"6 teams present their capstone
+   project"* across 12:45–13:45. The rev 3 direction says *"3 groups presenting a solution,
+   each given 5 minutes."* Three × 5 min is 15 min, not 60. Rev 3 uses **3 groups** as the
+   later instruction, and `capstone-lineup` reads the count from one content value so
+   correcting it is a single edit. **Confirm before the day.**
+2. **Community age.** Slide 4 says *"After running Nairobi AI Community for 5 years"* and
+   dates the leadership meeting to *December last year* (Dec 2025), while slide 5 puts the
+   community's start at **mid-2019** — about 6.5 years, not 5. Copy is used as given; flagged
+   so the speaker is not contradicted by the timeline behind them.
+
+### Removing `close-holding` leaves nothing on screen
+
+The deck previously ended on a holding slide built to sit unattended. With slide 18 gone the
+deck ends on `thank-you` at ~12:45 while the event runs to 14:00. `thank-you`, or
+`get-involved` with its application QR, can simply be left up — a note for the speaker
+rather than a defect.
 
 This document is the contract. The designer implements exactly this; QA verifies against
 exactly this. Slide `id`s are stable forever — never renumber, never reuse.
+
+> ⚠️ **Known gap at rev 3.** The per-slide detail sections further down this document are
+> **rev 2 vintage** and describe the old 18-slide closing deck. The authoritative rev 3
+> record is the order table and the "Rev 3 changes" table above, plus the implemented copy in
+> `src/content/deck.ts`. The detail sections have not been rewritten — flagged rather than
+> quietly left to look current, because QA verifies acceptance criteria against them. Rewriting
+> them is outstanding work.
 
 **Placeholder convention:** unconfirmed facts appear as `{{PLACEHOLDER: description}}`.
 These must render as *visibly provisional* — never styled to look like confirmed data.
@@ -21,25 +78,23 @@ These must render as *visibly provisional* — never styled to look like confirm
 
 | # | `id` | Title | Est. min |
 |---|------|-------|----------|
-| 1 | `title-close` | Demo Day · Cohort 2 | 0.5 |
-| 2 | `what-you-just-saw` | What you just watched | 1.5 |
-| 3 | `why-today` | Why we're all in this room | 2.0 |
-| 4 | `origin-story` | It started with a group chat | 1.5 |
-| 5 | `journey-timeline` | How we got here | 2.5 |
-| 6 | `community-today` | The community today | 1.5 |
-| 7 | `cohort2-programme` | What Cohort 2 actually did | 1.5 |
-| 8 | `cohort2-by-numbers` | Cohort 2 by the numbers | 1.5 |
-| 9 | `cohort2-showcase-recap` | Everything you saw today | 1.5 |
-| 10 | `graduate-voice` | In their words | 1.0 |
-| 11 | `mentors-facilitators` | The people who taught this | 1.5 |
-| 12 | `partnership-aic` | In partnership with The AI Collective | 1.5 |
-| 13 | `sponsors-partners` | Made possible by our sponsors | 2.0 |
-| 14 | `sponsor-impact-cta` | What your support built | 1.5 |
-| 15 | `whats-next` | What happens next | 2.0 |
-| 16 | `get-involved` | How to be part of it | 2.0 |
-| 17 | `thank-you` | Thank you | 1.0 |
-| 18 | `close-holding` | Stay in touch | 0.5 |
-| | | **Total** | **27.0** |
+| 1 | `title-close` | AI Demo Day · Cohort 2 | 0.5 |
+| 2 | `what-you-just-saw` | What you have already seen | 0.75 |
+| 3 | `why-today` | Why we're all in this room | 1.0 |
+| 4 | `origin-story` | Why we built this training | 0.75 |
+| 5 | `journey-timeline` | How we got here | 1.25 |
+| 6 | `community-today` | The community today | 0.75 |
+| 7 | `cohort2-programme` | What Cohort 2 actually did | 1.0 |
+| 8 | `virtual-address` | A word from our Lead Organizer | 4.0 |
+| 9 | `capstone-lineup` | What you're about to see | 1.0 |
+| 10 | `mentors-facilitators` | The people who made it happen | 1.0 |
+| 11 | `sponsors-partners` | Partners and sponsors | 1.25 |
+| 12 | `whats-next` | What happens next | 0.75 |
+| 13 | `get-involved` | How to be part of it | 0.5 |
+| 14 | `thank-you` | Thank you | 0.5 |
+| | | **Total** | **15.0** |
+
+Of the 15.0 minutes, **4.0 is the virtual address** (slide 8) and **11.0 is spoken slides**.
 
 ---
 

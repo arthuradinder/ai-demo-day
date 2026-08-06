@@ -22,39 +22,49 @@ let js = await readFile('dist/assets/deck.js', 'utf8');
 const css = await readFile('dist/assets/deck.css', 'utf8');
 
 /*
-  Fold any logo assets into the bundle as data URIs.
+  Fold every referenced asset into the bundle as a data URI.
 
-  Without this the standalone file would still reference "./logos/x.png" and show the
-  name-fallback when opened from anywhere other than beside a logos/ folder — which defeats
-  the point of a single portable file. Assets that are not present are left as-is: the
-  reference 404s and Logo.tsx falls back to the organisation name, which is the intended
-  behaviour rather than a failure.
+  Without this the standalone file still points at "./logos/x.png" and "./qr/y.svg", which
+  only resolve while it sits inside dist/ beside those folders. Copy the single file to a USB
+  stick on its own and the logos fall back to text and the QR codes disappear entirely — the
+  QR ones silently, which is worse, because a slide that says "scan the code" with no code is
+  a dead end in front of a room.
+
+  Assets that are not present are left as-is: the reference 404s and Logo.tsx falls back to
+  the organisation name, which is intended behaviour rather than a failure.
 */
 const MIME = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.svg': 'image/svg+xml', '.webp': 'image/webp' };
+
+/** Every public/ subdirectory whose files the deck references by relative path. */
+const ASSET_DIRS = ['logos', 'qr'];
 let inlined = 0;
 
-let logoFiles = [];
-try {
-  logoFiles = await readdir('dist/logos');
-} catch {
-  // No logos directory yet — nothing to inline.
+for (const dir of ASSET_DIRS) {
+  let files = [];
+  try {
+    files = await readdir(`dist/${dir}`);
+  } catch {
+    continue; // directory not present in this build
+  }
+
+  for (const file of files) {
+    const ext = file.slice(file.lastIndexOf('.')).toLowerCase();
+    const mime = MIME[ext];
+    if (!mime) continue;
+
+    const ref = `./${dir}/${file}`;
+    if (!js.includes(ref)) continue;
+
+    const bytes = await readFile(`dist/${dir}/${file}`);
+    const dataUri = `data:${mime};base64,${bytes.toString('base64')}`;
+    js = js.replaceAll(ref, dataUri);
+    inlined += 1;
+  }
 }
 
-for (const file of logoFiles) {
-  const ext = file.slice(file.lastIndexOf('.')).toLowerCase();
-  const mime = MIME[ext];
-  if (!mime) continue;
-
-  const ref = `./logos/${file}`;
-  if (!js.includes(ref)) continue;
-
-  const bytes = await readFile(`dist/logos/${file}`);
-  const dataUri = `data:${mime};base64,${bytes.toString('base64')}`;
-  js = js.replaceAll(ref, dataUri);
-  inlined += 1;
-}
-
-const stillReferenced = (js.match(/\.\/logos\/[^"']+/g) ?? []).length;
+const stillReferenced = (
+  js.match(new RegExp(`\\./(?:${ASSET_DIRS.join('|')})/[^"']+`, 'g')) ?? []
+).length;
 
 // A stray </script> inside the bundle would terminate the inline tag early.
 const safeJs = js.replaceAll('</script', '<\\/script');

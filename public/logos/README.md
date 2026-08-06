@@ -5,9 +5,30 @@ Drop the files in at **exactly these names**. The deck references these paths fr
 
 | File | Organisation | Where it appears | Supplied |
 |---|---|---|---|
-| `nairobi-ai-community.png` | Nairobi AI Community | Slide 12 `partnership-aic` | ⬜ pending |
-| `the-ai-collective.png` | The AI Collective — Nairobi Chapter | Slide 12 `partnership-aic` | ⬜ pending |
+| `nairobi-ai-community.png` | Nairobi AI Community | Slide 12 `partnership-aic` | ✅ 539×463, 78 kB |
+| `the-ai-collective.png` | The AI Collective — Nairobi Chapter | Slide 12 `partnership-aic` | ✅ 884×884, 1.5 MB |
 | `nairobi-business-angel-network.png` | Nairobi Business Angel Network | Slide 13 `sponsors-partners` | ⬜ optional |
+
+## Optical scale — read this before swapping a logo
+
+The two supplied marks disagree about their own margins. The Collective's roundel fills its
+884×884 canvas edge to edge; the Nairobi.AI wordmark sits in a narrow band inside 539×463
+with large transparent padding above and below. Because `object-contain` fits the *canvas*
+rather than the artwork, fitting both to identical boxes made the wordmark render about a
+third the height of the roundel — one partner reading as an afterthought next to the other.
+
+`src/content/deck.ts → logoScale` corrects this per mark (`host: 2.4`, `partner: 1`). The
+card clips the overflow, so scaling up is equivalent to trimming the file's dead padding.
+
+**If you re-export either logo tightly cropped, set its scale back to `1`** — otherwise it
+will render far too large.
+
+## Size note
+
+`the-ai-collective.png` is 1.5 MB for a mark displayed at most 132px tall. It works, but it
+is inlined as base64 into `dist/deck-standalone.html`, pushing that file to roughly 2.3 MB.
+Harmless for a USB stick; re-exporting it at around 400×400 would cut it by well over 90%
+if you ever want the standalone file lean.
 
 For NBAN, also set `logos.angelNetwork` in `src/content/deck.ts` to
 `'/logos/nairobi-business-angel-network.png'` — it is `null` today because no asset was

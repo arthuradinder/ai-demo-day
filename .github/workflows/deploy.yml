@@ -1,0 +1,63 @@
+name: Deploy deck to GitHub Pages
+
+# Publishes the built deck so it can be shared by link, and so the presenter has a
+# browser-accessible copy that does not depend on a local checkout.
+#
+# ONE-TIME SETUP: in the repo, Settings → Pages → Build and deployment → Source must be set
+# to "GitHub Actions". Until that is done this workflow builds successfully and then fails at
+# the deploy step.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race; always publish the newest commit on main.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # `playwright` is a devDependency used only by scripts/capture-slides.mjs. Its
+      # postinstall would otherwise pull ~190 MB of browsers that the build never uses.
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      # Runs gen-qr → tsc --noEmit → vite build → inline-dist, so a type error or a QR whose
+      # URL is no longer confirmed fails the deploy instead of shipping a broken deck.
+      - run: npm run build
+
+      # Colour contrast is part of the design bar, so it gates the deploy too.
+      - run: npm run check:contrast
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

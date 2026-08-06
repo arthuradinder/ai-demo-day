@@ -12,8 +12,9 @@ import { originStory as c } from '../content/deck';
 export function OriginStory() {
   return (
     <SlideFrame headline={c.headline}>
-      <p className="max-w-[1600px] text-lead text-ink">
-        {c.bodyBefore} <FactValue fact={c.when} />, <FactValue fact={c.who} /> {c.bodyAfter}
+      <p className="max-w-[1600px] text-lead text-fg">
+        {c.bodyBefore} {c.host} {c.bodyMiddleA} <FactValue fact={c.years} /> {c.bodyMiddleB}{' '}
+        <FactValue fact={c.when} />, {c.bodyAfter}
       </p>
 
       <Kicker>{c.kicker}</Kicker>

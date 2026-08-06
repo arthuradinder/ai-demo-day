@@ -13,7 +13,7 @@ import { mentors as c } from '../content/deck';
 export function MentorsFacilitators() {
   return (
     <SlideFrame headline={c.headline}>
-      <p className="mb-[44px] max-w-[1560px] text-lead font-medium text-teal">{c.intro}</p>
+      <p className="mb-[44px] max-w-[1560px] text-lead font-medium text-blue">{c.intro}</p>
 
       <NameGrid entries={c.people} columns={3} />
 

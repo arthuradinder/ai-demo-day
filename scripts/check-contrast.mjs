@@ -10,38 +10,45 @@
  * Token values below must stay in sync with src/styles/theme.css.
  */
 
+/*
+  Palette sampled from the event poster. Values must stay in sync with src/styles/theme.css.
+*/
 const TOKENS = {
-  paper: '#FAF7F2',
-  paperAlt: '#F2EDE4',
-  ink: '#16130F',
-  inkSoft: '#4A423A',
-  accent: '#B4471F',
-  accentDeep: '#8E3616',
-  accentSoft: '#F6E7DF',
-  teal: '#1F5E5B',
-  tealSoft: '#E2ECEA',
-  tbc: '#8A5A00',
-  tbcBg: '#FBF1DC',
-  surround: '#0E0C0A',
-  white: '#FFFFFF',
+  canvas: '#070B14',
+  canvasAlt: '#0C1422',
+  panel: '#111C2E',
+  fg: '#FFFFFF',
+  fgSoft: '#9DAAC0',
+  blue: '#2E93F7',
+  blueBright: '#5BAEFF',
+  flame: '#F0512B',
+  flameBright: '#FF7A4D',
+  tbc: '#F7C860',
+  tbcBg: '#241A08',
+  surround: '#02030A',
 };
 
 /** Every pair the deck renders, named by where it appears. */
 const PAIRS = [
-  ['ink on paper', TOKENS.ink, TOKENS.paper, 'body + headlines, most slides'],
-  ['ink-soft on paper', TOKENS.inkSoft, TOKENS.paper, 'eyebrows, footnotes, labels'],
-  ['accent on paper', TOKENS.accent, TOKENS.paper, 'kickers, figures, links'],
-  ['teal on paper', TOKENS.teal, TOKENS.paper, 'lead-ins, timeline dates'],
-  ['ink on paper-alt', TOKENS.ink, TOKENS.paperAlt, 'graduate-voice quote'],
-  ['ink-soft on paper-alt', TOKENS.inkSoft, TOKENS.paperAlt, 'graduate-voice attribution'],
-  ['accent-deep on paper-alt', TOKENS.accentDeep, TOKENS.paperAlt, 'graduate-voice quote mark'],
-  ['ink on accent-soft', TOKENS.ink, TOKENS.accentSoft, 'sponsor-impact-cta, whats-next card'],
-  ['ink-soft on accent-soft', TOKENS.inkSoft, TOKENS.accentSoft, 'sponsor-impact-cta label'],
-  ['accent-deep on accent-soft', TOKENS.accentDeep, TOKENS.accentSoft, 'sponsor-impact-cta contact'],
-  ['ink on teal-soft', TOKENS.ink, TOKENS.tealSoft, 'partnership-aic body'],
-  ['teal on teal-soft', TOKENS.teal, TOKENS.tealSoft, 'partnership-aic qualifier, step numbers'],
+  ['fg on canvas', TOKENS.fg, TOKENS.canvas, 'body + headlines, most slides'],
+  ['fg-soft on canvas', TOKENS.fgSoft, TOKENS.canvas, 'eyebrows, footnotes, labels, meta'],
+  ['blue on canvas', TOKENS.blue, TOKENS.canvas, 'lead-ins, timeline dates, route questions'],
+  ['blue-bright on canvas', TOKENS.blueBright, TOKENS.canvas, 'title tagline'],
+  ['flame on canvas', TOKENS.flame, TOKENS.canvas, 'links, figures, thanks'],
+  ['flame-bright on canvas', TOKENS.flameBright, TOKENS.canvas, 'kickers'],
+
+  ['fg on canvas-alt', TOKENS.fg, TOKENS.canvasAlt, 'graduate-voice quote'],
+  ['fg-soft on canvas-alt', TOKENS.fgSoft, TOKENS.canvasAlt, 'graduate-voice attribution'],
+  ['flame on canvas-alt', TOKENS.flame, TOKENS.canvasAlt, 'graduate-voice quote mark'],
+
+  ['fg on panel', TOKENS.fg, TOKENS.panel, 'sponsor-impact-cta, whats-next card, partnership'],
+  ['fg-soft on panel', TOKENS.fgSoft, TOKENS.panel, 'sponsor-impact-cta label'],
+  ['blue on panel', TOKENS.blue, TOKENS.panel, 'partnership qualifier, step numbers'],
+  ['flame on panel', TOKENS.flame, TOKENS.panel, 'sponsor-impact-cta contact'],
+
   ['tbc on tbc-bg', TOKENS.tbc, TOKENS.tbcBg, 'every placeholder marker'],
-  ['white on surround', TOKENS.white, TOKENS.surround, 'overview / notes / help overlays'],
+  ['tbc on canvas', TOKENS.tbc, TOKENS.canvas, 'placeholder hint text on bare ground'],
+  ['fg on surround', TOKENS.fg, TOKENS.surround, 'overview / notes / help overlays'],
 ];
 
 const srgbToLinear = (c) => {

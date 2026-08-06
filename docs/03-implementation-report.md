@@ -235,6 +235,146 @@ Each was caught by looking at rendered output, not by the build:
 Set to `h2` rather than `h1`. At `h1` the longer rev 2 headline wraps to two lines and costs
 ~120px the slide no longer has. It remains the largest text on the slide.
 
+## Round 3 — poster-derived visual redesign (2026-08-05)
+
+The user supplied the promo poster (`public/logos/demo-day-poster.png`) and asked for the
+deck's colour and theme to match it. **Structure, slide order, `id`s and narrative copy are
+unchanged** — this round is the visual system only, plus the poster's own taglines.
+
+### Palette — light theme replaced with the poster's dark one
+
+| Token | Value | Role |
+|---|---|---|
+| `canvas` | `#070B14` | slide ground |
+| `canvas-alt` | `#0C1422` | secondary ground |
+| `panel` | `#111C2E` | cards and accent slides |
+| `edge` | `#223148` | rules and borders |
+| `fg` / `fg-soft` | `#FFFFFF` / `#9DAAC0` | type |
+| `blue` / `blue-bright` | `#2E93F7` / `#5BAEFF` | first accent |
+| `flame` / `flame-bright` | `#F0512B` / `#FF7A4D` | second accent |
+| `tbc` / `tbc-bg` | `#F7C860` / `#241A08` | placeholder marker, re-tuned for dark |
+
+**All 16 contrast pairs pass, worst 4.81:1** (`scripts/check-contrast.mjs` updated to the new
+palette). This *increases* headroom over the light theme: body text went from 17.33:1 to
+**19.68:1**.
+
+On the earlier light-theme reasoning — the room is lit and ambient light lifts a dark
+theme's blacks — that trade-off is real and unchanged. But white on this ground has roughly
+double the headroom the old dark-on-light body text had, so what degrades under a washed-out
+projector is the crispness of the background, not the legibility of the text.
+
+### Motifs taken from the poster
+
+- **Blue→orange gradient rule** (`.rule-gradient`) as the headline underline on every framed
+  slide, and as the kicker bar — the poster's signature divider.
+- **Gradient "AI" lockup** above a heavy white "DEMO DAY" on the title slide.
+- **Poster taglines, verbatim**: "SHOWCASE. CONNECT. BUILD THE FUTURE." and
+  "INNOVATE LOCALLY. IMPACT GLOBALLY."
+- **Faint two-point radial glow** (`.canvas-glow`) echoing the poster's lighting, kept weak
+  enough to read as nothing rather than as a smudge on a poor projector.
+- **Logos now sit directly on the dark ground.** The white plates existed only because the
+  old theme was light; the poster sets both marks on dark and they hold up there.
+- **Compact horizontal logo lockup** for the title and holding slides, mirroring the
+  poster's header bar; the vertical standoff is retained for slide 12.
+
+### Confirmed facts adopted from the poster
+
+Venue (**ALX, The Piano — 171 Brookside Dr, Nairobi**) and start time (**10:00 AM**) were
+placeholders and are now confirmed, taken verbatim from the poster. The venue appears on the
+title slide.
+
+### Defects found and fixed this round
+
+1. **Gradient "AI" rendered as flat blue.** As a block element the gradient spanned the full
+   1664px content width while "AI" occupied the first ~8%, so the glyphs sampled pure blue
+   and the transition never appeared. Fixed with `inline-block` so the gradient box matches
+   the text.
+2. **`tone="paper"` / `ring-accent` survived the token sweep** — caught by `tsc` and a
+   follow-up grep respectively.
+
+### Not done this round
+
+The narrative rework the new run of show demands. See `docs/01-project-brief.md` rev 2 —
+the deck's slot is the **12:30 opening welcome (~15 min)**, not a 13:30 closing (30 min), so
+the retrospective spine and two slides are now factually wrong. Explicitly deferred to the
+content pass at the user's direction.
+
+## Round 4 — spec rev 3 content rework (2026-08-06)
+
+The deck is now **14 slides, 15.0 min**, built for the 12:30 opening welcome. Slide count,
+order, several `id`s and almost all copy changed. **Zero placeholders remain in
+`src/content/deck.ts`** — down from 40.
+
+### Slide-by-slide
+
+| # | `id` | What changed |
+|---|---|---|
+| 1 | `title-close` | venue now shown (ALX, The Piano) |
+| 2 | `what-you-just-saw` | recast to "Since you walked in the room…"; graduate framing and programme length removed; kicker dropped |
+| 3 | `why-today` | unchanged |
+| 4 | `origin-story` | real copy — 5 years of community, Dec 2025 leadership meeting; **retitled** "Why we built this training" |
+| 5 | `journey-timeline` | 7 real milestones, mid-2019 → 8 Aug 2026 |
+| 6 | `community-today` | 2,400+ / 20+ / 2 / 100+, zero in 2019 |
+| 7 | `cohort2-programme` | 15 weeks; 4 real steps |
+| 8 | `virtual-address` | **new** — replaces retired `cohort2-by-numbers` |
+| 9 | `capstone-lineup` | **new** — replaces retired `cohort2-showcase-recap`; 3 groups × 5 min |
+| 10 | `mentors-facilitators` | 5 real names + roles; retitled "The people who made it happen" |
+| 11 | `sponsors-partners` | `partnership-aic` merged in; main partners + 3 sponsors + 2 pending slots |
+| 12 | `whats-next` | live application QR; optional-initiative rows removed |
+| 13 | `get-involved` | 2 routes with QR codes |
+| 14 | `thank-you` | venue host confirmed; new closing line |
+
+Removed: `graduate-voice`, `sponsor-impact-cta`, `close-holding`. Six `id`s retired and
+never reusable.
+
+### QR codes — generated at build time, not at runtime
+
+`scripts/gen-qr.mjs` renders both codes to **SVG** in `public/qr/`, run automatically by
+`npm run build`. Three deliberate choices:
+
+- **SVG, not PNG** — a raster code scaled onto a 1920×1080 stage softens at the edges, and
+  soft edges are exactly what stops a projected code scanning from the back of a room.
+- **Error correction level H** (~30% damage tolerance) — a projected code gets photographed
+  at an angle, partly glared out, and sometimes with a head in the way.
+- **URLs parsed from `deck.ts`**, so there is still one source of truth; the script fails
+  loudly if a URL stops being a `confirmed(...)` value rather than silently emitting a stale code.
+
+`Qr` takes a `Fact<string>` rather than a bare string: if a URL ever reverts to a placeholder
+the code is **withheld** and the placeholder marker shows instead. A wrong or unscannable QR
+is worse than no QR.
+
+Every code renders beside its written-out URL. A projected code is unusable from the back of
+a lit room and unusable at an angle, so the text is not decoration.
+
+### Defects found and fixed this round
+
+1. **The standalone build did not actually contain the QR codes.** `inline-dist.mjs` only
+   inlined `dist/logos`, so `./qr/*.svg` stayed as external references. They resolved in
+   testing purely because the HTML sat inside `dist/` next to `dist/qr/` — copy that one file
+   to a USB stick and the codes vanish, silently, leaving slides that say "scan the code" with
+   no code. The inliner now covers every asset directory, and I verified it by copying the
+   HTML **alone into an empty directory** and rendering all 14 slides from it.
+2. **Sponsor names overflowed their cells.** "Nairobi Business Angel Network" at `h2` broke
+   out of the card. Dropped to `lead` and raised card height to 152px.
+3. **Overview chrome still said "of 30 min".** Now reads the real 15-minute slot and reports
+   how much of the budget is the virtual address.
+4. Stale `tone="paper"` default and `ring-accent` class survived the earlier token sweep.
+
+### Two conflicts NOT resolved — they need a human
+
+1. **3 groups or 6 teams?** Brief rev 2's run of show says six teams across 12:45–13:45; the
+   rev 3 direction says three groups at five minutes each, which is 15 minutes of a 60-minute
+   window. Built with **3**, read from one content value in `deck.ts`.
+2. **"5 years" vs mid-2019.** Slide 4 says the community ran for 5 years before the December
+   2025 meeting; slide 5 dates the start to mid-2019, which is ~6.5 years. The user's wording
+   is used as given, but the timeline is on screen two slides later.
+
+### Also worth a decision
+
+Removing `close-holding` means the deck ends on `thank-you` at ~12:45 while the event runs to
+14:00, so nothing is left on screen. `get-involved` carries the application QR and would be
+the natural slide to leave up.
+
 ## Handoff to `qa-project-manager`
 
 Spec rev 2, 18 slides, 27.0 min. Suggested starting points:

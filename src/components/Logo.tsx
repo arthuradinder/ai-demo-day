@@ -1,59 +1,98 @@
 import { useState } from 'react';
 
 /**
- * An organisation mark with its name beneath, for the partner standoff on slide 12.
+ * An organisation mark with its name, in one of two lockups taken from the poster.
  *
- * Two things this handles that a bare <img> does not:
+ * - default (`compact={false}`) — mark above, name centred beneath. Used for the partner
+ *   standoff on slide 12, where the two organisations face each other as equals.
+ * - `compact` — mark left, name right, mirroring the poster's header bar. Used on the title
+ *   and holding slides where the pairing is a credit line rather than the subject.
  *
- * 1. **Equal treatment across unequal marks.** The supplied logos differ in shape — one is
- *    a square glyph, one a wide wordmark — so matching heights alone would let the wordmark
- *    dominate. Every mark gets the same box and the same maximum height on both axes, with
- *    `object-contain` fitting it inside. That is what the equal-weight constraint protects.
+ * Three things this handles that a bare <img> does not:
  *
- * 2. **Non-transparent source art.** At least one supplied mark has a solid white
- *    background. Placed directly on the tinted slide ground it would read as a white patch
- *    while the other sat flush, making one partner look privileged. Both sit on identical
- *    neutral cards, which normalises the difference.
+ * 1. **Equal treatment across unequal marks.** Every mark gets the same box and the same
+ *    maximum height on both axes, with `object-contain` fitting it inside. That is what the
+ *    equal-weight constraint protects.
  *
- * When the asset file is absent the card is omitted entirely and the name carries the slot
- * on its own. An earlier version rendered the name inside a fallback card *and* as the
- * caption, which showed the organisation twice and looked like a bug. Never a broken-image
- * icon either way: a partner's name set as type is presentable, a broken icon projected
- * next to their representative is not.
+ * 2. **Artwork that disagrees about its own margins.** See `opticalScale` below.
+ *
+ * 3. **Missing files.** The card is omitted and the name carries the slot alone — never a
+ *    broken-image icon. A partner's name set as type is presentable; a broken icon
+ *    projected next to their representative is not.
+ *
+ * No white plate behind either mark: the poster sets both straight onto the dark ground and
+ * they hold up there, and a white plate on a deck this dark reads as leftover packaging.
  */
 export function Logo({
   src,
   name,
   subtitle,
+  opticalScale = 1,
+  compact = false,
 }: {
   src: string | null;
   name: string;
   subtitle?: string;
+  /**
+   * Per-mark optical correction. `object-contain` fits the image *canvas*, not the artwork
+   * inside it — so a mark supplied with generous transparent padding renders far smaller
+   * than one drawn edge to edge, even though both sit in identical boxes. Equal boxes are
+   * not equal weight when the source art disagrees about its own margins.
+   *
+   * Scaling up inside an `overflow-hidden` box clips that dead padding, which is a CSS-only
+   * equivalent of trimming the file. Tune per logo in `deck.ts → logoScale`; 1 means the
+   * artwork already fills its canvas.
+   */
+  opticalScale?: number;
+  compact?: boolean;
 }) {
   const [failed, setFailed] = useState(false);
   const hasImage = src !== null && !failed;
 
+  const box = compact ? 'h-[104px] w-[240px]' : 'h-[188px] w-[420px]';
+  const cap = compact ? 'max-h-[80px] max-w-[200px]' : 'max-h-[132px] max-w-[352px]';
+
+  const mark = hasImage ? (
+    // The box exists purely to clip the optical-scale overflow.
+    <div className={`flex ${box} flex-none items-center justify-center overflow-hidden`}>
+      <img
+        src={src}
+        alt=""
+        onError={() => setFailed(true)}
+        style={opticalScale === 1 ? undefined : { transform: `scale(${opticalScale})` }}
+        className={`${cap} object-contain`}
+      />
+    </div>
+  ) : null;
+
+  const label = (
+    <p className={`${compact ? 'text-left' : 'text-center'} font-bold text-fg`}>
+      <span className={compact ? 'text-small' : 'text-h2'}>{name}</span>
+      {subtitle ? (
+        <span
+          className={`block font-semibold tracking-[0.14em] text-blue uppercase ${
+            compact ? 'text-micro' : 'text-small'
+          }`}
+        >
+          {subtitle}
+        </span>
+      ) : null}
+    </p>
+  );
+
+  if (compact) {
+    return (
+      <div className="flex items-center gap-[18px]">
+        {mark}
+        {label}
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col items-center gap-[20px]">
-      {hasImage ? (
-        <div className="flex h-[188px] w-[420px] flex-none items-center justify-center rounded-[16px] bg-white px-[24px]">
-          <img
-            src={src}
-            alt=""
-            onError={() => setFailed(true)}
-            className="max-h-[132px] max-w-[352px] object-contain"
-          />
-        </div>
-      ) : null}
-
-      <p className="text-center text-h2 font-bold text-ink">
-        {name}
-        {subtitle ? (
-          <span className="block text-small font-semibold tracking-[0.14em] text-teal uppercase">
-            {subtitle}
-          </span>
-        ) : null}
-      </p>
+      {mark}
+      {label}
     </div>
   );
 }
