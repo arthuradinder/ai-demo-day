@@ -46,7 +46,12 @@ jobs:
       # Colour contrast is part of the design bar, so it gates the deploy too.
       - run: npm run check:contrast
 
+      # enablement: true turns Pages on with the workflow token, so the repo does not need a
+      # manual Settings → Pages visit. If the token is not permitted to do that, this step
+      # fails and the manual route in the header comment is the fallback.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
