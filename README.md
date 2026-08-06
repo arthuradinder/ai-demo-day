@@ -48,6 +48,24 @@ Rules that make the chain hold:
 
 Start the pipeline with the `/project-planner` skill.
 
+## Published deck
+
+Every push to `main` builds and deploys to GitHub Pages via
+[.github/workflows/deploy.yml](.github/workflows/deploy.yml):
+
+**https://arthuradinder.github.io/ai-demo-day/**
+
+> **One-time setup, required before anything publishes:**
+> repo **Settings → Pages → Build and deployment → Source = GitHub Actions**, then re-run the
+> latest workflow. Until that is set, the build and contrast checks pass and the job stops at
+> `configure-pages`. The workflow token cannot switch Pages on by itself — that was tried.
+
+The deploy is gated on `tsc --noEmit`, `vite build` and `npm run check:contrast`, so a type
+error or a failing colour pair blocks publication rather than shipping a broken deck.
+
+`dist/deck-standalone.html` is published alongside it — one self-contained file with the CSS,
+JS, logos and QR codes inlined. Download it for a laptop with no network and no toolchain.
+
 ## Running the deck
 
 ```bash
